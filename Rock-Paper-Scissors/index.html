@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Function library example</title>
+  <style>
+    input {
+      font-size: 2em;
+      margin: 10px 1px 0;
+    }
+  </style>
+  </head>
+<body>
+  <script>
+    const options = ['rock','paper', 'scissors'];
+    
+    function getPlayerChoice (){
+        let validateInput = false;
+        while (validateInput == false) {
+            const choice =  prompt ('Rock, Paper or Scissors?');
+        if (choice == null) {
+            continue;
+        }
+        let lowCaseChoice = choice.toLowerCase();
+        if (options.includes(lowCaseChoice)) {
+            validateInput == true;
+            return lowCaseChoice;
+        }
+        
+    }
+    }
+
+    
+    function getComputerChoice () {
+        let choice = Math.floor(Math.random() * 3)
+        if (choice == 0) {
+            return 'rock';
+        } else if (choice == 1) {
+            return 'paper';
+        } else {
+            return 'scissors';
+        }
+    }
+
+    function playRound (playerSelection, computerSelection) {
+        if (playerSelection == computerSelection){
+            return 'tie';
+        } else if ((playerSelection == 'rock' && computerSelection == 'scissors') || 
+        (playerSelection == 'paper' && computerSelection == 'rock') || (playerSelection == 'scissors' && computerSelection == 'paper')) {
+            return 'player';
+        } else {
+            return 'computer';
+        }    
+    }
+
+    function checkWinner (playerSelection, computerSelection) {
+        let roundWinner = playRound(playerSelection,computerSelection);
+        if (roundWinner == 'tie') {
+            return 'Its a TIE! Play the round again.'
+        } else if (roundWinner == 'player') {
+            return `Player wins the round! ${playerSelection} beats ${computerSelection}!`
+        } else {
+            return `Computer wins the round! ${computerSelection} beats ${playerSelection}!`
+        }
+    }
+
+    function game (){
+        let computerScore = 0
+        let playerScore = 0
+        for (let i = 0; i < 5; i++) {
+            let playerSelection = getPlayerChoice();
+            let computerSelection = getComputerChoice();
+            console.log (checkWinner(playerSelection,computerSelection));
+            console.log ('____________________________________________');
+            if (playRound(playerSelection,computerSelection) == 'player') {
+                playerScore++
+            } else if (playRound (playerSelection,computerSelection) == 'computer'
+            ) {
+                computerScore++
+            } else if (playRound (playerSelection, computerSelection) == 'tie')
+                i--;
+            }
+            console.log ('Game Over!')
+            console.log("Computer: " + computerScore);
+            console.log ("Player: " + playerScore);
+    }
+    
+
+    game ();
+  </script>
+</body>
+</html>
